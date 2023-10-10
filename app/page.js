@@ -5,18 +5,16 @@ import Link from "next/link";
 import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 export default function Home() {
-  const route = useRouter()
+  const route = useRouter();
   const user = localStorage.getItem("accessToken");
-  const logOut = () => {
+  const logOut = async () => {
+    await  localStorage.removeItem("accessToken");
 
-    localStorage.removeItem("accessToken")
-
-    route.refresh()
-  }
+    route.refresh();
+  };
   if (user === null) {
     return (
       <main>
-        
         <Button className="text-sm" variant="contained" href="/login">
           Login
         </Button>
