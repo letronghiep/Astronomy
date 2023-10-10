@@ -1,110 +1,120 @@
-"use client"
+"use client";
+import React, { useState, useTransition } from "react";
 import Link from "next/link";
-import React from "react";
+import { Button, TextField } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Schema } from "yup";
+import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function LoginPage() {
-  return (
-    // <div className="h-full relative flex items-center justify-center">
-    //   <div className="bg-auth absolute top-0 h-full w-full" />
-    //   <div className="card card-compact w-96 bg-base-100 shadow-xl">
-    //     <div className="card-body">
-    //       <h2 className="card-title text-center mx-auto italic sm:text-3xl text-2xl">
-    //         Astronomy
-    //       </h2>
-    //       <p className="text-center text-xl font-semibold text-neutral-800">Welcome Back !</p>
-    //       <p className="text-center text-neutral-500 text-base">Sign in to continue to Astronomy.</p>
-    //       <div className="card-actions justify-end">
-    //         <button className="btn btn-primary">Buy Now</button>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
-    /*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
+  const [isPending, startTransition] = useTransition();
+  const [accessToken, setAccessToken] = useState(null);
+  const route = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    email: "",
+    password: "",
+  });
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+  const [err, setErr] = useState("");
+  const onSubmit = async () => {
+    try {
+      const response = await fetch(`http://localhost:3500/user/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log("====================================");
+        console.log(data);
+        console.log("====================================");
+        const { accessToken } = data;
+        setAccessToken(accessToken);
+        console.log("Đăng nhập thành công! Access Token:", accessToken);
+        localStorage.setItem("accessToken", accessToken);
+        route.push("/");
+      } else if (response.status === 401) {
+        // toast("Kiểm tra lại email và password");
+        toast("Please check email or password");
+      } else if (response.status === 400) {
+        toast("Please enter email and password");
+      }
+    } catch (error) {
+      console.log(error.code);
+    }
+  };
 
+  return (
     <div className="relative h-full">
       <div className="bg-auth absolute top-0 h-full w-full" />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 relative sm:bg-white sm:w-[450px]">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Sign in to your account
+            Login to your account
           </h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Password
-                </label>
-                <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
-                    Forgot password?
-                  </a>
-                </div>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Sign in
-              </button>
-            </div>
+          <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+            <TextField
+              label="Email"
+              name="email"
+              {...register("email")}
+              variant="outlined"
+              sx={{ width: "100%" }}
+              error={!!errors.email}
+              helperText={errors?.email?.message}
+              value={formData.email}
+              onChange={handleInputChange}
+              size="small"
+              type="email"
+            />
+            <TextField
+              label="Password"
+              name="password"
+              type="password"
+              {...register("password")}
+              variant="outlined"
+              sx={{ width: "100%" }}
+              error={!!errors.password}
+              helperText={errors?.password?.message}
+              value={formData.password}
+              onChange={handleInputChange}
+              size="small"
+            />
+            <Button
+              type="submit"
+              fullWidth="true"
+              variant="outlined"
+              size="small"
+            >
+              {isPending ? "Loading..." : "Login"}
+            </Button>
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{" "}
+            Haven't account?{" "}
             <Link
               href="/register"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
@@ -114,6 +124,7 @@ function LoginPage() {
           </p>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
