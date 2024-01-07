@@ -3,11 +3,11 @@ import React, { useState, useTransition } from "react";
 import Link from "next/link";
 import { Button, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Schema } from "yup";
 import { useRouter } from "next/navigation";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { serialize } from "cookie";
 
 function LoginPage() {
   const [isPending, startTransition] = useTransition();
@@ -114,7 +114,7 @@ function LoginPage() {
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member? 
+            Not a member?
             <Link
               href="/register"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"

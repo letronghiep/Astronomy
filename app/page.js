@@ -1,14 +1,18 @@
 "use client";
-import Image from "next/image";
-import LoginPage from "./(auth)/login/page";
-import Link from "next/link";
 import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useState } from "react";
 export default function Home() {
   const route = useRouter();
-  const user = localStorage.getItem("accessToken");
-  const logOut = async () => {
-    await  localStorage.removeItem("accessToken");
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const getUser = localStorage.getItem("accessToken");
+    setUser(getUser);
+  }, [user]);
+  const logOut = () => {
+    localStorage.removeItem("accessToken");
+    setUser(null);
 
     route.refresh();
   };
