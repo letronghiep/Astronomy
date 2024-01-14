@@ -3,20 +3,18 @@ import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useAuthStore } from "~/utils/AuthStore";
+
 export default function Home() {
   const route = useRouter();
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    const getUser = localStorage.getItem("accessToken");
-    setUser(getUser);
-  }, [user]);
+  const { token } = useAuthStore();
   const logOut = () => {
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem("jwt");
     setUser(null);
 
     route.refresh();
   };
-  if (user === null) {
+  if (token === null) {
     return (
       <main>
         <Button className="text-sm" variant="contained" href="/login">

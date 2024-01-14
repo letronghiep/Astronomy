@@ -1,0 +1,7 @@
+.collapsed {
+    width: 80px;
+    min-width: 80px;
+}
+.hidden{
+    display: none;
+}

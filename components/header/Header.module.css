@@ -1,0 +1,8 @@
+.bg_header{
+background-color: aqua;
+}
+@media screen and (max-width: 768px){
+    .bg_header{
+        background-color: #000;
+    }
+}
