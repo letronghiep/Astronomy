@@ -9,10 +9,10 @@ export default function Home() {
   const route = useRouter();
   const { token } = useAuthStore();
   const logOut = () => {
-    localStorage.removeItem("jwt");
-    setUser(null);
+    // localStorage.removeItem("jwt");
+    // setUser(null);
 
-    route.refresh();
+    // route.refresh();
   };
   if (token === null) {
     return (
