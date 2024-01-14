@@ -1,5 +1,4 @@
 "use client";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, TextField } from "@mui/material";
 import Cookies from "js-cookie";
 import Link from "next/link";
@@ -8,7 +7,6 @@ import React, { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Schema } from "~/configs/schema";
 import { verifyToken } from "~/lib/verifyToken";
 import { login } from "~/services/auth/index";
 import { useAuthStore } from "~/utils/AuthStore";

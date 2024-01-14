@@ -12,6 +12,7 @@ import Loading from "../loading";
 import HeaderAdmin from "~/components/header/HeaderAdmin";
 import SuperComponent from "~/components/SuperComponent";
 import { getArticleCategory } from "~/services/articleCategory";
+import MainLayout from "./MainLayout";
 
 function AdminPage() {
   const setArticleCategory = useArticleStore(
@@ -34,6 +35,7 @@ function AdminPage() {
     "/getAllArticleCategory",
     getArticleCategory
   );
+
   useEffect(() => {
     setArticleCategory(articleCategories);
     setArticleCategoryLoading(articleCategoryLoading);
@@ -44,16 +46,9 @@ function AdminPage() {
     setArticleCategoryLoading,
   ]);
   return (
-    <div className="w-full h-screen flex bg-gray-50 overflow-hidden">
-      <SideBarAdmin />
-      <div className="w-full h-full ">
-        <HeaderAdmin />
-        <div className="w-full h-5/6  flex flex-wrap items-start justify-center overflow-y-auto  px-4 py-2">
-          {articleCategoryLoading ? <Loading /> : <SuperComponent />}
-        </div>
-      </div>
-      <ToastContainer />
-    </div>
+    <MainLayout>
+      {articleCategoryLoading ? <Loading /> : <SuperComponent />}
+    </MainLayout>
   );
 }
 

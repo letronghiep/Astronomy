@@ -7,6 +7,18 @@ export async function getArticleCategory() {
   return data;
 }
 
+export async function search_article_category(perpage, sort, page) {
+  try {
+    const res = await axiosInstance.get(
+      `/search?perpage=${perpage}&sort=${sort}&page=${page}`
+    );
+    const result = await res.data;
+    return result;
+  } catch (error) {
+    console.log("Error: ", error);
+  }
+}
+
 export async function getArticles() {
   const res = await axiosInstance.get("/article");
   const data = await res.data;
