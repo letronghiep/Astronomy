@@ -1,19 +1,25 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
+// import DataTable from "react-data-table-component";
 import Loading from "~/app/loading";
-import { delete_article_category_by_id } from "~/services/articleCategory";
+import { delete_article_category_by_id, search_article_category } from "~/services/articleCategory";
 import useArticleStore from "~/utils/ArticleStore";
+import DataTable from "../table/DataTable";
+import { Pagination } from "flowbite-react";
+import useSWR from "swr";
 
 function ArticleCategoryTable() {
   const router = useRouter();
-  const isLoading = useArticleStore((state) => state.articleCategoryLoading);
+  // const isLoading = useArticleStore((state) => state.articleCategoryLoading);
   const data = useArticleStore((state) => state.articleCategory);
   const [cateData, setCateData] = useState([]);
 
   const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("");
   const [filterData, setFilterData] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     setCateData(data);
@@ -33,6 +39,7 @@ function ArticleCategoryTable() {
           return itemData.indexOf(text) > -1;
         })
       );
+    
     }
   }, [search, cateData]);
   const handleDeleteProduct = async (id) => {
@@ -44,62 +51,73 @@ function ArticleCategoryTable() {
       toast.error("Something went wrong");
     }
   };
+  const onPageChange = () => {};
   const columns = [
     {
-      name: "Name",
-      selector: (row) => row?.name,
-      sortable: true,
+      idx: 1,
+      name: "Image",
+      selector: "image",
     },
     {
-      name: "Action",
-      cell: (row) => (
-        <div className="flex items-center justify-start px-2 h-20">
-          <button
-            onClick={() =>
-              router.push(`/admin/article-category/update-category/${row?._id}`)
-            }
-            className=" w-20 py-2 mx-2 text-xs text-green-600 hover:text-white my-2 hover:bg-green-600 border border-green-600 rounded transition-all duration-700"
-          >
-            Update
-          </button>
-          <button
-            onClick={() => handleDeleteProduct(row?._id)}
-            className=" w-20 py-2 mx-2 text-xs text-red-600 hover:text-white my-2 hover:bg-red-600 border border-red-600 rounded transition-all duration-700"
-          >
-            Delete
-          </button>
-        </div>
-      ),
+      idx: 2,
+      name: "Name",
+      selector: "name",
+    },
+    {
+      idx: 3,
+      name: "Description",
+      selector: "description",
     },
   ];
-  return (
-    <div className="w-full h-full">
-      <DataTable
-        columns={columns}
-        data={filterData || []}
-        key={"ThisArticleCategory"}
-        pagination
-        keyField="id"
-        title={`Article Category`}
-        fixedHeader
-        fixedHeaderScrollHeight="500px"
-        selectableRows
-        selectableRowsHighlight
-        persistTableHead
-        progressPending={isLoading}
-        progressComponent={<Loading />}
-        subHeader
-        subHeaderComponent={
-          <input
-            className="w-60 dark:bg-transparent py-2 px-2  outline-none  border-b-2 border-orange-600"
-            type={"search"}
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder={"Category Name"}
-          />
-        }
-        className="bg-white px-4 h-4/6 "
+  const SearchComponent = (
+    <div className="flex justify-between">
+      <div className="flex gap-x-3">
+        <div>
+          <span className="mr-2">Sắp xếp</span>
+          <select className="rounded-md  py-1.5 sm:text-sm sm:leading-6">
+            <option value="a_z">Từ A-Z</option>
+            <option value="z_a">Từ Z-A</option>
+            <option value="latest">Mới nhất</option>
+            <option value="oldest">Cũ nhất</option>
+          </select>
+        </div>
+      </div>
+      <input
+        type="search"
+        className="rounded-md border-0 py-1.5 w-[300px] text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 ml-auto"
+        placeholder="Search Name"
+        onChange={(e) => setSearch(e.target.value)}
       />
+    </div>
+  );
+  return (
+    <div className="w-full">
+        <DataTable
+          data={filterData}
+          columns={columns}
+          searchComponent={SearchComponent}
+        />
+
+      <div className="flex items-center justify-between">
+        <Pagination
+          layout="pagination"
+          currentPage={currentPage}
+          totalPages={1000}
+          onPageChange={onPageChange}
+          previousLabel=""
+          nextLabel=""
+          showIcons
+          className="mx-auto"
+        />
+        <div>
+          <span className="mr-2">Hiển thị</span>
+          <select className="rounded-md  py-1.5 sm:text-sm sm:leading-6">
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+      </div>
     </div>
   );
 }
