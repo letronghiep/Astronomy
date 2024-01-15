@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useAuthStore } from "~/utils/AuthStore";
+import UserMainLayout from "~/components/layout/UserMainLayout"
 
 export default function Home() {
   const route = useRouter();
@@ -17,9 +18,9 @@ export default function Home() {
   if (token === null) {
     return (
       <main>
-        <Button className="text-sm" variant="contained" href="/login">
-          Login
-        </Button>
+        <UserMainLayout>
+          Đây là Layout 
+        </UserMainLayout>
       </main>
     );
   }

@@ -1,0 +1,13 @@
+.footer_content {
+    min-height: 200px;
+    background-color: #fff;
+}
+
+.margin {
+    height: 10px;
+    background-color: #fff;
+    width: 100%;
+    background: #540054;
+    background: -webkit-linear-gradient(to left, #540054, #bf4193);
+    background: linear-gradient(to left, #540054, #bf4193);
+}
