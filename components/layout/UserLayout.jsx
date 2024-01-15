@@ -7,7 +7,7 @@ import RightSidebar from '~/components/partials/sidebar/RightSidebar.jsx';
 
 import styles from './layout.module.css';
 
-const UserMainLayout = ({ children }) => {
+const UserLayout = ({ children }) => {
   return (
     <div className = {styles.main}>
       <Header />
@@ -17,9 +17,8 @@ const UserMainLayout = ({ children }) => {
           <div className={styles.right_content}>
             <div className = {styles.top_right_content}>
                 {children}
-                <RightSidebar />
             </div>
-            <Footer/>
+            <div className={styles.margin}></div>
           </div>
         </div>
       </main>
@@ -28,4 +27,4 @@ const UserMainLayout = ({ children }) => {
   );
 };
 
-export default UserMainLayout;
+export default UserLayout;

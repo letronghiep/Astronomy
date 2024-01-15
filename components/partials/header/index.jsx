@@ -4,6 +4,8 @@ import styles from "./header.module.css";
 import React, { useEffect, useRef } from 'react';
 
 import Logo from '~/components/partials/logo'
+import HeaderMenu from '~/components/partials/menu/header-menu'
+import HeaderControl from '~/components/partials/menu/header-control'
 
 function Header() {
   const lastScrollTop = useRef(0);
@@ -55,9 +57,8 @@ function Header() {
       <div className = {styles.headerMenu}>
         <div className={styles.container}>
           <Logo/>
-          <div className={styles.user}>
-            
-          </div>
+          <HeaderMenu/>
+          <HeaderControl/>
         </div>
       </div>
     </header>
