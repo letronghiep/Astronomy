@@ -4,23 +4,23 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useAuthStore } from "~/utils/AuthStore";
-import UserMainLayout from "~/components/layout/UserMainLayout"
+import UserLayout from "~/components/layout/UserLayout"
 
-export default function Home() {
+export default function Profile() {
   const route = useRouter();
   const { token } = useAuthStore();
   const logOut = () => {
-    // localStorage.removeItem("jwt");
-    // setUser(null);
+    localStorage.removeItem("jwt");
+    setUser(null);
 
-    // route.refresh();
+    route.refresh();
   };
   if (token === null) {
     return (
       <main>
-        <UserMainLayout>
+        <UserLayout>
           Đây là Layout 
-        </UserMainLayout>
+        </UserLayout>
       </main>
     );
   }
