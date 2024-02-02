@@ -7,7 +7,6 @@ import { Schema } from "~/configs/schema";
 import { Button, TextField } from "@mui/material";
 import RegisterForm from "~/components/auth/RegisterForm";
 function RegisterPage() {
-  
   return <RegisterForm />;
 }
 

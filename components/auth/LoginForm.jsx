@@ -45,7 +45,7 @@ function LoginForm() {
       if ("Admin" in res.roles) {
         route.push("/admin");
       } else {
-        route.push("/");
+        route.push("/admin/login");
       }
     }
   };

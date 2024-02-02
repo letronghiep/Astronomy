@@ -26,7 +26,7 @@ function UpdatePage({ params }) {
   useEffect(() => {
     const token = localStorage.getItem("refreshToken") || "";
     if (!token) {
-      router.push("/");
+      router.push("/admin/login");
     }
   }, [router]);
 

@@ -44,7 +44,7 @@ function AdminPage() {
     const token = localStorage.getItem("refreshToken") || "";
     // const roles = token && verifyToken(token).roles;
     if (!token) {
-      router.push("/");
+      router.push("/admin/login");
     }
   }, [Cookies, router]);
 

@@ -17,7 +17,7 @@ function AddUserPage() {
   useEffect(() => {
     const token = localStorage.getItem("refreshToken");
     if (!token) {
-      router.push("/");
+      router.push("/admin/login");
     }
   }, [router]);
   const onSubmit = async (formData) => {

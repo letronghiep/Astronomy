@@ -25,7 +25,7 @@ function Page({ params }) {
   useEffect(() => {
     const token = localStorage.getItem("refreshToken") || "";
     if (!token) {
-      router.push("/");
+      router.push("/admin/login");
     }
   }, [router]);
   const { data: articleCategory, isLoading: loading } = useSWR(
