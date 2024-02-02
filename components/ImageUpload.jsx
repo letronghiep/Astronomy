@@ -54,7 +54,7 @@ function ImageUpload(props) {
       setIsLoading(false); // Set loading state to false in case of error
       console.error("Error uploading image:", error);
     }
-  }, []);
+  }, [props]);
   return (
     <>
       <ReactQuill
