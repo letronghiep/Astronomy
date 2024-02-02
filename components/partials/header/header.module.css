@@ -1,0 +1,56 @@
+.main_header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.margin {
+    height: 10px;
+    background-color: #fff;
+    width: 100%;
+    background: #540054;
+    background: -webkit-linear-gradient(to right, #540054, #bf4193);
+    background: linear-gradient(to right, #540054, #bf4193);
+}
+
+.headerNoti {
+    background-color: #fff;
+    height: 40px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+}
+
+.headerNoti .container {
+    width: var(--width-default);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+}
+
+.icon {
+    font-size: 17px;
+    margin-right: 20px;
+}
+
+.weather {
+    display: flex;
+}
+
+.headerMenu {
+    height: 60px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.headerMenu .container {
+    width: var(--width-default);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
