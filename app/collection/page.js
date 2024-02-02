@@ -3,23 +3,24 @@ import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useAuthStore } from "~/hooks/useAuthStore";
+import { useAuthStore } from "~/utils/AuthStore";
+import UserLayout from "~/components/layout/UserLayout"
 
-export default function Home() {
+export default function Collection() {
   const route = useRouter();
   const { token } = useAuthStore();
   const logOut = () => {
-    // localStorage.removeItem("jwt");
-    // setUser(null);
+    localStorage.removeItem("jwt");
+    setUser(null);
 
-    // route.refresh();
+    route.refresh();
   };
   if (token === null) {
     return (
       <main>
-        <UserMainLayout>
-          Đây là Layout 
-        </UserMainLayout>
+        <UserLayout>
+          Sự kiên
+        </UserLayout>
       </main>
     );
   }
