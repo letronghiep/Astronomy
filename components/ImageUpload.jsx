@@ -1,11 +1,15 @@
 "use client";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import ReactQuill from "react-quill";
+const ReactQuill = dynamic(import("react-quill"), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>,
+});
 import { upload_image } from "~/services/CKEditor/image";
 import "react-quill/dist/quill.snow.css";
 import { htmlToMarkdown } from "~/lib/Parser";
 import { toast } from "react-toastify";
 import { Progress } from "flowbite-react";
+import dynamic from "next/dynamic";
 export default function ImageUpload(props) {
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -112,4 +116,3 @@ export default function ImageUpload(props) {
     </>
   );
 }
-export const dynamic = "force-dynamic";
