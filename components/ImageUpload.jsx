@@ -1,9 +1,20 @@
 "use client";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-const ReactQuill = dynamic(import("react-quill"), {
-  ssr: false,
-  loading: () => <p>Loading ...</p>,
-});
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+const ReactQuill = dynamic(
+  async () => {
+    const { default: RQ } = await import("react-quill");
+    return ({ forwardedRef, ...props }) => <RQ ref={forwardedRef} {...props} />;
+  },
+  {
+    ssr: false,
+  }
+);
 import { upload_image } from "~/services/CKEditor/image";
 import "react-quill/dist/quill.snow.css";
 import { htmlToMarkdown } from "~/lib/Parser";
@@ -24,7 +35,7 @@ export default function ImageUpload(props) {
       });
     }
   };
-  const imageHandler = useCallback(() => {
+  const imageHandler = () => {
     try {
       const input = document.createElement("input");
       input.setAttribute("type", "file");
@@ -52,45 +63,49 @@ export default function ImageUpload(props) {
           setProgress(0);
         }
         setIsLoading(false); // Set loading state to false in case of error
-        document.body.removeChild(input);
       };
     } catch (error) {
       setProgress(0);
       setIsLoading(false); // Set loading state to false in case of error
       console.error("Error uploading image:", error);
     }
-  }, [props]);
+  };
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          [{ header: "1" }, { header: "2" }, { font: [] }],
+          [{ size: [] }],
+          ["bold", "italic", "underline", "strike", "blockquote"],
+          [
+            { list: "ordered" },
+            { list: "bullet" },
+            { indent: "-1" },
+            { indent: "+1" },
+          ],
+          ["link", "image", "video"],
+          ["code-block"],
+          ["clean"],
+        ],
+        handlers: {
+          image: imageHandler,
+        },
+      },
+
+      clipboard: {
+        matchVisual: false,
+      },
+    }),
+    []
+  );
+
   return (
     <>
       <ReactQuill
-        ref={reactQuillRef}
+        forwardedRef={reactQuillRef}
         theme="snow"
         placeholder="Start writing..."
-        modules={{
-          toolbar: {
-            container: [
-              [{ header: "1" }, { header: "2" }, { font: [] }],
-              [{ size: [] }],
-              ["bold", "italic", "underline", "strike", "blockquote"],
-              [
-                { list: "ordered" },
-                { list: "bullet" },
-                { indent: "-1" },
-                { indent: "+1" },
-              ],
-              ["link", "image", "video"],
-              ["code-block"],
-              ["clean"],
-            ],
-            handlers: {
-              image: imageHandler,
-            },
-          },
-
-          clipboard: {
-            matchVisual: false,
-          },
-        }}
+        modules={modules}
         formats={[
           "header",
           "font",
