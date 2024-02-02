@@ -9,7 +9,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { verifyToken } from "~/lib/verifyToken";
 import { login } from "~/services/auth/index";
-import { useAuthStore } from "~/utils/AuthStore";
+import { useAuthStore } from "~/hooks/useAuthStore";
 
 function LoginForm() {
   const [isPending, startTransition] = useTransition();
@@ -40,17 +40,9 @@ function LoginForm() {
   const onSubmit = async () => {
     const res = await login(formData);
     if (res != null) {
-      Cookies.set("jwt", res.accessToken);
-      localStorage.setItem("jwt", res.accessToken);
-      const token = localStorage.getItem("jwt");
-      const user = verifyToken(token);
-      const roles = user?.roles;
-      userData(token, roles);
-      const test = useAuthStore.getState().token;
-      console.log("====================================");
-      console.log(test);
-      console.log("====================================");
-      if (hasRole(2000)) {
+      localStorage.setItem("refreshToken", res.refreshToken);
+      userData(res.refreshToken, res.roles);
+      if ("Admin" in res.roles) {
         route.push("/admin");
       } else {
         route.push("/");

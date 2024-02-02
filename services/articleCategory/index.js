@@ -10,7 +10,7 @@ export async function getArticleCategory() {
 export async function search_article_category(perpage, sort, page) {
   try {
     const res = await axiosInstance.get(
-      `/search?perpage=${perpage}&sort=${sort}&page=${page}`
+      `/articlecategory/search?perpage=${perpage}&sort=${sort}&page=${page}`
     );
     const result = await res.data;
     return result;
@@ -44,11 +44,19 @@ export async function update_article_category(formData, id) {
     console.log("Error in Add New Category (service) =>", error);
   }
 }
-export async function get_article_category_by_id(id) {}
+export async function get_article_category_by_id(id) {
+  try {
+    const res = await axiosInstance.get(`/articlecategory/${id}`);
+    const data = await res.data;
+    return data;
+  } catch (error) {
+    console.log("Error in Add New Category (service) =>", error);
+  }
+}
 
 export async function delete_article_category_by_id(id) {
   try {
-    const res = await axiosInstance.delete(`/${id}`);
+    const res = await axiosInstance.delete(`articlecategory/${id}`);
     const data = await res.data;
     return data;
   } catch (error) {

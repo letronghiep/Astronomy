@@ -1,151 +1,85 @@
 "use client";
-import { TextField } from "@mui/material";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
-import Loading from "~/app/loading";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "~/components/loading";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
 import { verifyToken } from "~/lib/verifyToken";
-import { update_article_category } from "~/services/articleCategory";
+import {
+  get_article_category_by_id,
+  update_article_category,
+} from "~/services/articleCategory";
 import Cookies from "js-cookie";
-import AdminNav from "~/utils/AdminNav";
+import useAdminNav from "~/hooks/useAdminNav";
 import useSWR from "swr";
+import MainLayout from "~/components/admin/MainLayout";
+import ArticleCategoryForm from "~/components/admin/form/ArticleCategoryForm";
 
 function Page({ params }) {
   const [loader, setLoader] = useState(false);
-  const [cateData, setCateData] = useState(null)
-  const setNavActive = AdminNav((state) => state.setNavActive);
+  const setNavActive = useAdminNav((state) => state.setNavActive);
+  const [html, setHtml] = useState("");
+
   const router = useRouter();
-
-
+  const [imageUrl, setImageUrl] = useState([]);
   useEffect(() => {
-    const token = localStorage.getItem("jwt") || "";
-    const verify = verifyToken(token);
-    const roles = verify?.roles;
-    if (!Cookies.get("jwt") || !roles.includes(2000)) {
+    const token = localStorage.getItem("refreshToken") || "";
+    if (!token) {
       router.push("/");
     }
   }, [router]);
+  const { data: articleCategory, isLoading: loading } = useSWR(
+    "/getArticleCategory",
+    () => get_article_category_by_id(params.id)
+  );
 
-  const {
-    register,
-    formState: { errors },
-    setValue,
-    handleSubmit,
-  } = useForm({
-    criteriaMode: "all",
-  });
-  const {data, isLoading} = useSWR('/getAllArticleCategory', () => {})
   const onSubmit = async (formData) => {
-    const updateData = {
-      _id: params.id,
-      name: formData.name,
-      slug: formData.slug,
-    };
-    setLoader(true);
-    const finalData = { name: formData.name, slug: formData.slug };
-    const data = await update_article_category(finalData, params.id);
-    if (data) {
-      toast.success("Successfully!");
-      setNavActive("Base");
-      setTimeout(() => {
-        router.push("/admin");
-      }, 2000);
-      setLoader(false);
-    } else {
+    try {
+      setLoader(true);
+      const finalData = {
+        _id: params.id,
+        name: formData.name,
+        description: formData.description,
+        image: imageUrl[0]?.webContentLink || articleCategory.image,
+      };
+      
+      const data = await update_article_category(finalData, params.id);
+      if (data) {
+        toast.success("Successfully!");
+        setNavActive("ArticleCategory");
+        setTimeout(() => {
+          router.push("/admin");
+        }, 2000);
+
+        setLoader(false);
+      }
+    } catch (error) {
       toast.error("Something went wrong");
+      toast.error(error.message);
+
       console.log("====================================");
-      console.log(errors);
+      console.log(error);
       console.log("====================================");
       setLoader(false);
     }
   };
   return (
-    <div className="w-full  p-4 min-h-screen  bg-gray-50 flex flex-col">
-      <div className="text-sm breadcrumbs  border-b-2 border-b-orange-600">
-        <ul className="dark:text-black flex">
-          <li>
-            <Link className="flex" href={"/admin"}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="w-4 h-4 mr-2 stroke-current"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                ></path>
-              </svg>
-              Dashboard /
-            </Link>
-          </li>
-          <li className="flex">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="w-4 h-4 mr-2 stroke-current"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              ></path>
-            </svg>
-            Update ArticleCategory
-          </li>
-        </ul>
-      </div>
-      <div className="w-full h-20 my-2 text-center">
-        <h1 className="text-2xl py-2 dark:text-black ">Add Category</h1>
-        {loader ? (
-          <>
-            <Loading />
-            <p>Loading</p>
-          </>
-        ) : (
-          <div className="w-full h-full flex items-start justify-center">
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="w-full max-w-lg  py-2 flex flex-col gap-3"
-            >
-              <TextField
-                label="Category Name"
-                name="name"
-                type="text"
-                {...register("name", { required: true })}
-                variant="outlined"
-                sx={{ width: "100%" }}
-                error={!!errors.name}
-                helperText={errors?.name?.message}
-                size="small"
-              />
-              <TextField
-                label="Category Slug"
-                name="slug"
-                type="text"
-                {...register("slug", { required: true })}
-                variant="outlined"
-                sx={{ width: "100%" }}
-                error={!!errors.slug}
-                helperText={errors?.slug?.message}
-                size="small"
-              />
-              <button className="bg-blue-600 mt-3 p-3 text-white hover:bg-blue-500">
-                Done !
-              </button>
-            </form>
-          </div>
-        )}
-      </div>
-      <ToastContainer />
-    </div>
+    <MainLayout>
+      {loader && loading ? (
+        <>
+          <Loading />
+          <p>Loading User...</p>
+        </>
+      ) : (
+        <ArticleCategoryForm
+          title="Update Category"
+          loader={loader}
+          onSubmit={onSubmit}
+          setImageUrl={setImageUrl}
+          data={articleCategory}
+        />
+      )}
+    </MainLayout>
   );
 }
 

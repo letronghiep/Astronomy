@@ -1,33 +1,75 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-// import DataTable from "react-data-table-component";
-import Loading from "~/app/loading";
-import { delete_article_category_by_id, search_article_category } from "~/services/articleCategory";
-import useArticleStore from "~/utils/ArticleStore";
-import DataTable from "../table/DataTable";
-import { Pagination } from "flowbite-react";
-import useSWR from "swr";
+import {
+  delete_article_category_by_id,
+  getArticleCategory,
+  search_article_category,
+} from "~/services/articleCategory";
+import Filter from "../partials/filter";
+import DataTable from "react-data-table-component";
+import Image from "next/image";
+import Loading from "~/components/loading";
+import useRentModal from "~/hooks/useModelStore";
+import DeleteCategory from "../modal/DeleteCategory";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import useAdminNav from "~/hooks/useAdminNav";
+import { useSWRConfig } from "swr";
+import { Button } from "@mui/material";
+import { HiPlusCircle } from "react-icons/hi";
+import useFilterStore from "~/hooks/useFilterStore";
 
 function ArticleCategoryTable() {
+  const useFilter = useFilterStore();
+
+  const {
+    sort,
+    perPage,
+    currentPage,
+    totalRow,
+    setSort,
+    setPerPage,
+    setCurrentPage,
+    setTotalPage,
+    setTotalRow,
+  } = useFilter;
+
   const router = useRouter();
-  // const isLoading = useArticleStore((state) => state.articleCategoryLoading);
-  const data = useArticleStore((state) => state.articleCategory);
+  const rentModal = useRentModal();
+  const adminNav = useAdminNav();
   const [cateData, setCateData] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
+  // const [sort, setSort] = useState("a_z");
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [perPage, setPerPage] = useState(10);
+  // const [totalPage, setTotalPage] = useState(1);
   const [filterData, setFilterData] = useState([]);
-
-  const [currentPage, setCurrentPage] = useState(1);
-
+  // const [totalRow, setTotalRow] = useState();
+  const [openModal, setOpenModal] = useState(false);
+  const [idSelected, setIdSelected] = useState();
+  const { mutate } = useSWRConfig();
+  // Hàm lấy dữ liệu từ API
+  const fetchDataFunction = async () => {
+    try {
+      // Gọi API để lấy dữ liệu
+      const res = await search_article_category(perPage, sort, currentPage);
+      const result = await res;
+      setCurrentPage(result.currentPage);
+      setCateData(result?.data);
+      setTotalPage(result.totalPages);
+      setTotalRow(result?.totalRow);
+    } catch (error) {
+      console.error("Error loading data:", error);
+    }
+  };
   useEffect(() => {
-    setCateData(data);
-  }, [data]);
+    fetchDataFunction();
+  }, [perPage, sort, currentPage]);
   useEffect(() => {
     setFilterData(cateData);
   }, [cateData]);
-
   useEffect(() => {
     if (search === "") {
       setFilterData(cateData);
@@ -39,48 +81,94 @@ function ArticleCategoryTable() {
           return itemData.indexOf(text) > -1;
         })
       );
-    
     }
   }, [search, cateData]);
-  const handleDeleteProduct = async (id) => {
-    const result = await delete_article_category_by_id(id);
-    if (result) {
-      toast.success("Delete Successfull");
+  const paginationOptions = {
+    rowsPerPageText: "Rows per page:",
+    rangeSeparatorText: "of",
+    selectAllRowsItem: true,
+    selectAllRowsItemText: "All",
+  };
+  const handlePerPageChange = (newPerPage) => {
+    setPerPage(newPerPage);
+  };
+  const handleOpenModal = (id, row) => {
+    setOpenModal(true);
+    rentModal.setCategory(row);
+    setIdSelected(id);
+  };
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+  const handleSubmit = async () => {
+    try {
+      await delete_article_category_by_id(idSelected);
+      toast.success("Deleted successfully");
+      setTimeout(() => {
+        setOpenModal(false);
+      }, 5000);
       mutate("/getAllArticleCategory");
-    } else {
-      toast.error("Something went wrong");
+      await fetchDataFunction();
+      adminNav.setNavActive("ArticleCategory");
+    } catch (error) {
+      console.error("Error deleting category:", error);
     }
   };
-  const onPageChange = () => {};
+  const handleClose = () => {
+    setOpenModal(false);
+  };
   const columns = [
     {
-      idx: 1,
       name: "Image",
-      selector: "image",
+      cell: (row) => (
+        <Image
+          src={row?.image || "/images/no_image.jpg"}
+          alt="No Image Found"
+          className="py-2"
+          width={60}
+          height={60}
+        />
+      ),
     },
     {
-      idx: 2,
       name: "Name",
-      selector: "name",
+      selector: (row) => row?.name,
+      sortable: true,
     },
     {
-      idx: 3,
-      name: "Description",
-      selector: "description",
+      name: "Action",
+      cell: (row) => (
+        <div className="flex items-center justify-start px-2 h-20">
+          <button
+            onClick={() =>
+              router.push(`/admin/article-category/update-category/${row?._id}`)
+            }
+            className=" w-20 py-2 mx-2 text-xs text-green-600 hover:text-white my-2 hover:bg-green-600 border border-green-600 rounded transition-all duration-700"
+          >
+            Update
+          </button>
+          <button
+            onClick={() => handleOpenModal(row?._id, row)}
+            className=" w-20 py-2 mx-2 text-xs text-red-600 hover:text-white my-2 hover:bg-red-600 border border-red-600 rounded transition-all duration-700"
+          >
+            Delete
+          </button>
+        </div>
+      ),
     },
   ];
   const SearchComponent = (
-    <div className="flex justify-between">
-      <div className="flex gap-x-3">
-        <div>
-          <span className="mr-2">Sắp xếp</span>
-          <select className="rounded-md  py-1.5 sm:text-sm sm:leading-6">
-            <option value="a_z">Từ A-Z</option>
-            <option value="z_a">Từ Z-A</option>
-            <option value="latest">Mới nhất</option>
-            <option value="oldest">Cũ nhất</option>
-          </select>
-        </div>
+    <div className="flex justify-between mb-4 flex-col md:flex-row gap-2 my-2">
+      <div className="flex gap-x-2 ">
+        <Button
+          href="/admin/article-category/add-category"
+          endIcon={<HiPlusCircle />}
+          className=""
+        >
+          Add
+        </Button>
+
+        <Filter sortBy={sort} setSortBy={setSort} />
       </div>
       <input
         type="search"
@@ -91,33 +179,32 @@ function ArticleCategoryTable() {
     </div>
   );
   return (
-    <div className="w-full">
-        <DataTable
-          data={filterData}
-          columns={columns}
-          searchComponent={SearchComponent}
+    <div className="container mx-auto">
+      <DataTable
+        columns={columns}
+        data={filterData || []}
+        subHeader
+        subHeaderComponent={SearchComponent}
+        subHeaderAlign="right"
+        pagination
+        paginationServer
+        paginationTotalRows={totalRow}
+        onChangeRowsPerPage={handlePerPageChange}
+        paginationComponentOptions={paginationOptions}
+        onChangePage={handlePageChange}
+        progressPending={isLoading}
+        paginationRowsPerPageOptions={[5, 10, 30, 40, 50]}
+        progressComponent={<Loading />}
+      />
+      {openModal && (
+        <DeleteCategory
+          onSubmit={handleSubmit}
+          onClose={handleClose}
+          disabled={isLoading}
+          category={rentModal.category}
+          showModal={openModal}
         />
-
-      <div className="flex items-center justify-between">
-        <Pagination
-          layout="pagination"
-          currentPage={currentPage}
-          totalPages={1000}
-          onPageChange={onPageChange}
-          previousLabel=""
-          nextLabel=""
-          showIcons
-          className="mx-auto"
-        />
-        <div>
-          <span className="mr-2">Hiển thị</span>
-          <select className="rounded-md  py-1.5 sm:text-sm sm:leading-6">
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-          </select>
-        </div>
-      </div>
+      )}
     </div>
   );
 }

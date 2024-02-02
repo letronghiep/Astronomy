@@ -1,61 +1,257 @@
 "use client";
-import { Sidebar } from "flowbite-react";
-import React, { useEffect, useState } from "react";
-import styles from "./SidebarAdmin.module.css";
-
-import { HiChartPie, HiLogout, HiMenu } from "react-icons/hi";
-import { PiArticleMediumLight } from "react-icons/pi";
+import { useState } from "react";
+import { styled, useTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import MuiDrawer from "@mui/material/Drawer";
+import MuiAppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import List from "@mui/material/List";
+import CssBaseline from "@mui/material/CssBaseline";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import {
+  ArticleOutlined,
+  CalendarMonth,
+  CardTravel,
+  DashboardOutlined,
+  Logout,
+  Mail,
+  People,
+  ProductionQuantityLimits,
+} from "@mui/icons-material";
 import { useRouter } from "next/navigation";
-import { getArticleCategory } from "~/lib/actions";
-import AdminNav from "~/utils/AdminNav";
+import useAdminNav from "~/hooks/useAdminNav";
+import { logout } from "~/services/auth";
 
-function SideBarAdmin() {
-  const route = useRouter();
-  const toggleSidebar = () => {
-    document.querySelector(".sidebar").classList.toggle(styles.collapsed);
-    const span = document.querySelector(".sidebar").querySelectorAll("span");
-    span.forEach((item) => item.classList.toggle(styles.hidden));
+const drawerWidth = 240;
+
+const openedMixin = (theme) => ({
+  width: drawerWidth,
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: "hidden",
+});
+
+const closedMixin = (theme) => ({
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: "hidden",
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up("sm")]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+});
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+}));
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(["width", "margin"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+  ...(open && {
+    ...openedMixin(theme),
+    "& .MuiDrawer-paper": openedMixin(theme),
+  }),
+  ...(!open && {
+    ...closedMixin(theme),
+    "& .MuiDrawer-paper": closedMixin(theme),
+  }),
+}));
+
+const navs = [
+  {
+    id: 1,
+    name: "Dashboard",
+    navActive: "Base",
+    icon: <DashboardOutlined />,
+  },
+  {
+    id: 2,
+    name: "Article Category",
+    navActive: "ArticleCategory",
+    icon: <ArticleOutlined />,
+  },
+  {
+    id: 3,
+    name: "Articles",
+    navActive: "Articles",
+    icon: <ArticleOutlined />,
+  },
+  {
+    id: 4,
+    name: "Emails",
+    navActive: "Emails",
+    icon: <Mail />,
+  },
+  {
+    id: 5,
+    name: "Events",
+    navActive: "Events",
+    icon: <CalendarMonth />,
+  },
+  {
+    id: 6,
+    name: "Users",
+    navActive: "Users",
+    icon: <People />,
+  },
+  {
+    id: 7,
+    name: "ProductCategory",
+    navActive: "ProductCategory",
+    icon: <CardTravel />,
+  },
+  {
+    id: 8,
+    name: "Products",
+    navActive: "Products",
+    icon: <ProductionQuantityLimits />,
+  },
+];
+
+export default function MiniDrawer() {
+  const theme = useTheme();
+  const router = useRouter();
+  const setNav = useAdminNav((state) => state.setNavActive);
+  const [open, setOpen] = useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
   };
 
-  const logOut = () => {
-    route.refresh();
+  const handleDrawerClose = () => {
+    setOpen(false);
   };
-  const setNavActive = AdminNav((state) => state.setNavActive);
+  const handleLogout = async () => {
+    localStorage.removeItem("refreshToken");
+    await logout();
+    router.refresh();
+  };
   return (
-    <Sidebar
-      className="sidebar"
-      aria-label=""
-      style={{ transition: "width, left, right, 0.3s", fontSize: "14px" }}
-    >
-      <Sidebar.Items>
-        <Sidebar.ItemGroup>
-          <Sidebar.Item onClick={toggleSidebar} icon={HiMenu}>
-            ASTRONOMY
-          </Sidebar.Item>
-          <Sidebar.Item
-            href="/admin"
-            onClick={() => setNavActive("Base")}
-            icon={HiChartPie}
-            label="Pro"
-            labelColor="dark"
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AppBar position="fixed" open={open}>
+        <Toolbar className="bg-white">
+          <IconButton
+            color=""
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{
+              marginRight: 5,
+              ...(open && { display: "none" }),
+            }}
           >
-            Dashboard
-          </Sidebar.Item>
-          <Sidebar.Collapse icon={PiArticleMediumLight} label="ArticleCategory">
-            <Sidebar.Item onClick={() => setNavActive("ArticleCategory")}>
-              All Categories
-            </Sidebar.Item>
-            <Sidebar.Item href="/admin/article-category/add-category">
-              Add Categories
-            </Sidebar.Item>
-          </Sidebar.Collapse>
-          <Sidebar.Item onClick={logOut} icon={HiLogout} className="mt-auto">
-            Log out
-          </Sidebar.Item>
-        </Sidebar.ItemGroup>
-      </Sidebar.Items>
-    </Sidebar>
+            <MenuIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === "rtl" ? (
+              <ChevronRightIcon />
+            ) : (
+              <ChevronLeftIcon />
+            )}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          {navs.map((item) => (
+            <ListItem key={item.id} disablePadding sx={{ display: "block" }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.name}
+                  onClick={() => {
+                    router.push("/admin");
+                    setNav(`${item.navActive}`);
+                  }}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
+          <ListItem disablePadding sx={{ display: "block" }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <Logout />
+              </ListItemIcon>
+              <ListItemText
+                primary="Log out"
+                onClick={handleLogout}
+                sx={{ opacity: open ? 1 : 0 }}
+              />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Drawer>
+    </Box>
   );
 }
-
-export default SideBarAdmin;
