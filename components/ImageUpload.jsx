@@ -6,21 +6,24 @@ import React, {
   useRef,
   useState,
 } from "react";
+import dynamic from "next/dynamic";
+
+import { upload_image } from "~/services/CKEditor/image";
+import "react-quill/dist/quill.snow.css";
+import { htmlToMarkdown } from "~/lib/Parser";
+import { toast } from "react-toastify";
+import { Progress } from "flowbite-react";
+
 const ReactQuill = dynamic(
   async () => {
     const { default: RQ } = await import("react-quill");
+    // eslint-disable-next-line react/display-name
     return ({ forwardedRef, ...props }) => <RQ ref={forwardedRef} {...props} />;
   },
   {
     ssr: false,
   }
 );
-import { upload_image } from "~/services/CKEditor/image";
-import "react-quill/dist/quill.snow.css";
-import { htmlToMarkdown } from "~/lib/Parser";
-import { toast } from "react-toastify";
-import { Progress } from "flowbite-react";
-import dynamic from "next/dynamic";
 export default function ImageUpload(props) {
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
