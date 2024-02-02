@@ -158,7 +158,7 @@ function ArticleCategoryTable() {
     },
   ];
   const SearchComponent = (
-    <div className="flex justify-between mb-4 flex-col md:flex-row gap-2 my-2">
+    <div className="flex justify-between mb-4 flex-col md:flex-row gap-2 my-2 items-center">
       <div className="flex gap-x-2 ">
         <Button
           href="/admin/article-category/add-category"

@@ -90,7 +90,7 @@ function ArticleForm({ loader, onSubmit, title, setImageUrl, data, setHtml }) {
     setIsLoading(false);
   };
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto px-4">
       <div className="w-full h-20 my-2 text-center">
         {loader ? (
           <>

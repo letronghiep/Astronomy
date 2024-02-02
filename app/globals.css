@@ -19,17 +19,10 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-
+/* 
 html {
   font-size: 62.5%;
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  height: 100vh;
-  font-size: 1.6rem;
-  overflow: hidden;
-}
+} */
 .bg-auth {
   background-image: url("../public/images/astronomy.jpg");
   background-size: cover;

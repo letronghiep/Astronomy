@@ -10,7 +10,6 @@ function MainLayout({ children }) {
     <div className="w-full h-full flex">
       <SideBarAdmin />
       <div className="mt-12 md:mt-16 relative w-screen h-screen">
-        {/* className="relative w-full h-screen md:mt-16 mt-12" */}
         {children}
       </div>
       <ToastContainer />
