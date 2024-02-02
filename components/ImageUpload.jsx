@@ -48,6 +48,7 @@ function ImageUpload(props) {
           setProgress(0);
         }
         setIsLoading(false); // Set loading state to false in case of error
+        document.body.removeChild(input);
       };
     } catch (error) {
       setProgress(0);
