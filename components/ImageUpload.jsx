@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 "use client";
 import React, {
   useCallback,
@@ -9,24 +10,20 @@ import React, {
 import dynamic from "next/dynamic";
 
 import { upload_image } from "~/services/CKEditor/image";
-import "react-quill/dist/quill.snow.css";
 import { htmlToMarkdown } from "~/lib/Parser";
 import { toast } from "react-toastify";
 import { Progress } from "flowbite-react";
-
 const ReactQuill = dynamic(
   async () => {
     const { default: RQ } = await import("react-quill");
-    const DynamicReactQuill = ({ forwardedRef, ...props }) => (
-      <RQ ref={forwardedRef} {...props} />
-    );
-    DynamicReactQuill.displayName = "DynamicReactQuill";
-    return DynamicReactQuill;
+    return ({ forwardedRef, ...props }) => <RQ ref={forwardedRef} {...props} />;
   },
   {
     ssr: false,
   }
 );
+import "react-quill/dist/quill.snow.css";
+
 const ImageUpload = (props) => {
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
