@@ -17,14 +17,17 @@ import { Progress } from "flowbite-react";
 const ReactQuill = dynamic(
   async () => {
     const { default: RQ } = await import("react-quill");
-    // eslint-disable-next-line react/display-name
-    return ({ forwardedRef, ...props }) => <RQ ref={forwardedRef} {...props} />;
+    const DynamicReactQuill = ({ forwardedRef, ...props }) => (
+      <RQ ref={forwardedRef} {...props} />
+    );
+    DynamicReactQuill.displayName = "DynamicReactQuill";
+    return DynamicReactQuill;
   },
   {
     ssr: false,
   }
 );
-export default function ImageUpload(props) {
+const ImageUpload = (props) => {
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -133,4 +136,5 @@ export default function ImageUpload(props) {
       {isLoading && <Progress progress={progress} size="md" color="dark" />}
     </>
   );
-}
+};
+export default ImageUpload;
