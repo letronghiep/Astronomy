@@ -3,8 +3,7 @@ import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useAuthStore } from "~/utils/AuthStore";
-import UserMainLayout from "~/components/layout/UserMainLayout"
+import { useAuthStore } from "~/hooks/useAuthStore";
 
 export default function Home() {
   const route = useRouter();

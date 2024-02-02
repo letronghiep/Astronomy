@@ -1,6 +1,5 @@
 import React from "react";
 import { Inter } from "next/font/google";
-import SideBarAdmin from "~/components/admin/sidebar/SideBarAdmin";
 import HeaderAdmin from "~/components/header/HeaderAdmin";
 
 const inter = Inter({ subsets: ["latin"] });

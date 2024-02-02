@@ -1,7 +1,7 @@
-import HeaderAdmin from "~/components/header/HeaderAdmin";
+
 import "./globals.css";
 import { Inter } from "next/font/google";
-import SideBarAdmin from "~/components/admin/sidebar/SideBarAdmin";
+
 
 const inter = Inter({ subsets: ["latin"] });
 

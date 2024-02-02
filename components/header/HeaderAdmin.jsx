@@ -3,10 +3,11 @@ import { Avatar, Dropdown, Navbar, TextInput } from "flowbite-react";
 import Cookies from "js-cookie";
 import React from "react";
 import { HiSearch } from "react-icons/hi";
-import { getUser } from "~/lib/actions";
+import { logout } from "~/services/auth";
 
 function HeaderAdmin() {
-   function signOut() {
+  async function signOut() {
+    await logout();
     Cookies.remove("jwt");
     localStorage.clear();
     location.reload();
