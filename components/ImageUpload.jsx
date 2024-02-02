@@ -6,7 +6,7 @@ import "react-quill/dist/quill.snow.css";
 import { htmlToMarkdown } from "~/lib/Parser";
 import { toast } from "react-toastify";
 import { Progress } from "flowbite-react";
-function ImageUpload(props) {
+export default function ImageUpload(props) {
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -112,5 +112,4 @@ function ImageUpload(props) {
     </>
   );
 }
-
-export default ImageUpload;
+export const dynamic = "force-dynamic";
