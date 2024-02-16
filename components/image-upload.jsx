@@ -32,39 +32,42 @@ const ImageUpload = (props) => {
   };
   const imageHandler = useCallback(() => {
     try {
-      const input = document.createElement("input");
-      input.setAttribute("type", "file");
-      input.setAttribute("accept", "image/*");
-      input.setAttribute("name", "files[]");
-      input.multiple = true;
-      input.click();
-      input.onchange = async () => {
-        if (input !== null && input.files !== null) {
-          setIsLoading(true); // Set loading state to true
-          const files = input.files;
-          const url = await upload_image(files, setProgress);
-          const quill = reactQuillRef.current;
-          console.log("====================================");
-          console.log(quill);
-          console.log("====================================");
-          if (quill) {
-            const range = quill.getEditorSelection();
+      if (typeof document !== 'undefined') {
+
+        const input = document.createElement("input");
+        input.setAttribute("type", "file");
+        input.setAttribute("accept", "image/*");
+        input.setAttribute("name", "files[]");
+        input.multiple = true;
+        input.click();
+        input.onchange = async () => {
+          if (input !== null && input.files !== null) {
+            setIsLoading(true); // Set loading state to true
+            const files = input.files;
+            const url = await upload_image(files, setProgress);
+            const quill = reactQuillRef.current;
             console.log("====================================");
-            console.log(range);
+            console.log(quill);
             console.log("====================================");
-            url.forEach((item) => {
-              props.setImageUrl((prev) => [...prev, item]);
-              range &&
-                quill
-                  .getEditor()
-                  .insertEmbed(range.index, "image", item?.webContentLink);
-            });
-            toast.success("Uploaded!!!");
+            if (quill) {
+              const range = quill.getEditorSelection();
+              console.log("====================================");
+              console.log(range);
+              console.log("====================================");
+              url.forEach((item) => {
+                props.setImageUrl((prev) => [...prev, item]);
+                range &&
+                  quill
+                    .getEditor()
+                    .insertEmbed(range.index, "image", item?.webContentLink);
+              });
+              toast.success("Uploaded!!!");
+            }
+            setProgress(0);
           }
-          setProgress(0);
-        }
-        setIsLoading(false); // Set loading state to false in case of error
-      };
+          setIsLoading(false); // Set loading state to false in case of error
+        };
+      }
     } catch (error) {
       setProgress(0);
       setIsLoading(false); // Set loading state to false in case of error
