@@ -39,10 +39,10 @@ function AdminPage() {
   useEffect(() => {
     const token = localStorage.getItem("refreshToken") || "";
     // const roles = token && verifyToken(token).roles;
-    if (!token) {
+    if (!token || token === "undefined") {
       router.push("/admin/login");
     }
-  }, [Cookies, router]);
+  }, [router]);
 
   const { data: articleCategories, isLoading: articleCategoryLoading } = useSWR(
     "/getAllArticleCategory",

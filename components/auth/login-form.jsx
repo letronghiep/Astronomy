@@ -40,9 +40,12 @@ function LoginForm() {
   const onSubmit = async () => {
     const res = await login(formData);
     if (res != null) {
-      localStorage.setItem("refreshToken", res.refreshToken);
-      userData(res.refreshToken, res.roles);
-      if ("Admin" in res.roles) {
+      localStorage.setItem("refreshToken", res.accessToken);
+      userData(res.accessToken, res.data.roles);
+      console.log("====================================");
+      console.log(res.data.roles);
+      console.log("====================================");
+      if (res.data.roles !== null && "Admin" in res.data.roles) {
         route.push("/admin");
       } else {
         route.push("/admin/login");
