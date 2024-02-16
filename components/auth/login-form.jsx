@@ -50,7 +50,7 @@ function LoginForm() {
     }
   };
   return (
-    <div className="relative h-full">
+    <div className="relative h-screen">
       <div className="bg-auth absolute top-0 h-full w-full" />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 relative sm:bg-white sm:w-[450px]">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
