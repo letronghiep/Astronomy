@@ -12,7 +12,7 @@ import useFilterStore from "~/hooks/useFilterStore";
 import useSelectedCategory from "~/hooks/useSelectedCategory";
 import { get_product_category } from "~/services/product-category";
 import dynamic from "next/dynamic";
-const ImageUpload = dynamic(() => import("../../image-upload"), {
+const ImageUpload = dynamic(() => import("~/components/image-upload"), {
   ssr: false,
 });
 function ProductForm({

@@ -15,7 +15,7 @@ import { CloudUploadOutlined } from "@mui/icons-material";
 import { upload_image } from "~/services/CKEditor/image";
 import { Progress } from "flowbite-react";
 import dynamic from "next/dynamic";
-const ImageUpload = dynamic(() => import("../../image-upload"), {
+const ImageUpload = dynamic(() => import("~/components/image-upload"), {
   ssr: false,
 });
 function ArticleForm({ loader, onSubmit, title, setImageUrl, data, setHtml }) {

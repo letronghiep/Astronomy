@@ -10,7 +10,7 @@ import useFilterStore from "~/hooks/useFilterStore";
 import useSelectedCategory from "~/hooks/useSelectedCategory";
 import { get_all_user } from "~/services/auth";
 import dynamic from "next/dynamic";
-const ImageUpload = dynamic(() => import("../../image-upload"), {
+const ImageUpload = dynamic(() => import("~/components/image-upload"), {
   ssr: false,
 });
 function MailTemplateForm({

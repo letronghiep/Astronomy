@@ -8,7 +8,7 @@ import Loading from "~/components/loading";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import dynamic from "next/dynamic";
-const ImageUpload = dynamic(() => import("../../image-upload"), {
+const ImageUpload = dynamic(() => import("~/components/image-upload"), {
   ssr: false,
 });
 function ArticleCategoryForm({ loader, onSubmit, title, setImageUrl, data }) {
