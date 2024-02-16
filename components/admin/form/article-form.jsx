@@ -4,18 +4,20 @@ import Image from "next/image";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import Loading from "~/components/loading";
-import ImageUpload from "~/components/image-upload";
+// import ImageUpload from "~/components/image-upload";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 import { search_article_category } from "~/services/articleCategory";
 import PickCategory from "~/components/partials/modal/category";
 import useFilterStore from "~/hooks/useFilterStore";
 import useSelectedCategory from "~/hooks/useSelectedCategory";
-import ReactQuillComponent from "~/components/react-quill";
-import { CloudUploadOutlined, Upload } from "@mui/icons-material";
+import { CloudUploadOutlined } from "@mui/icons-material";
 import { upload_image } from "~/services/CKEditor/image";
 import { Progress } from "flowbite-react";
-
+import dynamic from "next/dynamic";
+const ImageUpload = dynamic(() => import("../../image-upload"), {
+  ssr: false,
+});
 function ArticleForm({ loader, onSubmit, title, setImageUrl, data, setHtml }) {
   const {
     register,
