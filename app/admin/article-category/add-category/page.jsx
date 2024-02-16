@@ -16,7 +16,7 @@ import useAdminNav from "~/hooks/useAdminNav";
 import { markdownToHtml } from "~/lib/Parser";
 import ArticleCategoryForm from "~/components/admin/form/article-category-form";
 import dynamic from "next/dynamic";
-const ImageUpload = dynamic(() => import("../../image-upload"), {
+const ImageUpload = dynamic(() => import("~/components/image-upload"), {
   ssr: false,
 });
 function Page() {
