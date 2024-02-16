@@ -4,9 +4,13 @@ import { TextField, TextareaAutosize } from "@mui/material";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "~/components/loading";
-import ImageUpload from "~/components/image-upload";
+// import ImageUpload from "~/components/image-upload";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
+import dynamic from "next/dynamic";
+const ImageUpload = dynamic(() => import("../../image-upload"), {
+  ssr: false,
+});
 function ArticleCategoryForm({ loader, onSubmit, title, setImageUrl, data }) {
   const {
     register,

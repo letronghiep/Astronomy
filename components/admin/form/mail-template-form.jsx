@@ -2,14 +2,17 @@
 import { AttachFile, Gif } from "@mui/icons-material";
 import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import ImageUpload from "~/components/image-upload";
+// import ImageUpload from "~/components/image-upload";
 import ReactQuillComponent from "~/components/react-quill";
 import Loading from "~/components/loading";
 import PickCategory from "~/components/partials/modal/category";
 import useFilterStore from "~/hooks/useFilterStore";
 import useSelectedCategory from "~/hooks/useSelectedCategory";
 import { get_all_user } from "~/services/auth";
-
+import dynamic from "next/dynamic";
+const ImageUpload = dynamic(() => import("../../image-upload"), {
+  ssr: false,
+});
 function MailTemplateForm({
   loader,
   title,

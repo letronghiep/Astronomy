@@ -6,12 +6,15 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ToastContainer } from "react-toastify";
 import Loading from "~/components/loading";
-import ImageUpload from "~/components/image-upload";
+// import ImageUpload from "~/components/image-upload";
 import PickCategory from "~/components/partials/modal/category";
 import useFilterStore from "~/hooks/useFilterStore";
 import useSelectedCategory from "~/hooks/useSelectedCategory";
 import { get_product_category } from "~/services/product-category";
-
+import dynamic from "next/dynamic";
+const ImageUpload = dynamic(() => import("../../image-upload"), {
+  ssr: false,
+});
 function ProductForm({
   loader,
   onSubmit,
