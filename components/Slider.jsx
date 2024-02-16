@@ -17,7 +17,7 @@ function Slider({ images }) {
       } else if (currentIndex >= images.length - 1) {
         setCurrentIndex(0);
       }
-    }, 3000);
+    }, 4000);
     return () => clearTimeout(timer);
   }, [currentIndex, images.length]);
   const gotoSlice = (idx) => {
