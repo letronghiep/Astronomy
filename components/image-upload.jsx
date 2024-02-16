@@ -32,7 +32,7 @@ const ImageUpload = (props) => {
   };
   const imageHandler = useCallback(() => {
     try {
-      if (typeof document !== 'undefined') {
+      if (typeof document !== undefined) {
 
         const input = document.createElement("input");
         input.setAttribute("type", "file");
