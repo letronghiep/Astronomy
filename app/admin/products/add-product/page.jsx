@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import MainLayout from "../../../../components/admin/MainLayout";
-import ProductForm from "~/components/admin/form/ProductForm";
+import ProductForm from "~/components/admin/form/product-form";
 import useSelectedCategory from "~/hooks/useSelectedCategory";
 import { create_product } from "~/services/products";
 import { toast } from "react-toastify";

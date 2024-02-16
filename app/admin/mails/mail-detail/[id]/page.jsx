@@ -9,9 +9,9 @@ import {
   Snooze,
 } from "@mui/icons-material";
 import { Alert } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
-import TooltipCustom from "~/components/Tooltip";
+import TooltipCustom from "~/components/tool-tip";
 import MainLayout from "~/components/admin/MainLayout";
 import Loading from "~/components/loading";
 import { get_user_by_id } from "~/services/auth";
@@ -23,13 +23,33 @@ function MailDetail({ params }) {
     loading: isLoading,
     error: error,
   } = useSWR("/maildetail", () => get_mail_template_by_id(params.id));
-  const { data: userPost, loading: loadUser } = useSWR("/user", () =>
-    get_user_by_id(mailDetail?.createdBy)
-  );
+  const [userPost, setUserPost] = useState();
+  const [loader, setLoader] = useState(false);
+  useEffect(() => {
+    async function loadUser() {
+      try {
+        setLoader(true);
+        const res = await get_user_by_id(mailDetail?.createdBy);
+        if (res) {
+          setUserPost(res);
+        }
+        setLoader(false);
+      } catch (error) {
+        toast.error(error);
+        setLoader(false);
+      }
+    }
+    loadUser();
+  }, [mailDetail?.createdBy]);
   const htmlContent = { __html: mailDetail?.content };
-  if (isLoading || loadUser) return <Loading />;
-  if (error) return <Alert severity="success">{error}</Alert>;
-
+  if (loader)
+    return (
+      <MainLayout>
+        <div className="container flex justify-center items-center h-full w-full">
+          <Loading />
+        </div>
+      </MainLayout>
+    );
   return (
     <MainLayout>
       <div className="container mx-auto w-11/12 lg:w-full p-6 rounded-lg shadow-lg shadow-neutral-300 flex justify-between">

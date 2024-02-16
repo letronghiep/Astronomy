@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 import MainLayout from "~/components/admin/MainLayout";
-import ProductForm from "~/components/admin/form/ProductForm";
+import ProductForm from "~/components/admin/form/product-form";
 import useAdminNav from "~/hooks/useAdminNav";
 import useSelectedCategory from "~/hooks/useSelectedCategory";
 import { get_image } from "~/services/images";

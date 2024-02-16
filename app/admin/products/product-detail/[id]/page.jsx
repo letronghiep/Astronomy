@@ -4,7 +4,7 @@ import { Spinner } from "flowbite-react";
 import Link from "next/link";
 import React, { useEffect, useState, useTransition } from "react";
 import MainLayout from "~/components/admin/MainLayout";
-import Slider from "~/components/Slider";
+import Slider from "~/components/slider";
 import TextTruncate from "~/components/text-truncate";
 import { get_image } from "~/services/images";
 import { get_product_category_by_id } from "~/services/product-category";

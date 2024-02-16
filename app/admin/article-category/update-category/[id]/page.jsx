@@ -13,7 +13,7 @@ import Cookies from "js-cookie";
 import useAdminNav from "~/hooks/useAdminNav";
 import useSWR from "swr";
 import MainLayout from "~/components/admin/MainLayout";
-import ArticleCategoryForm from "~/components/admin/form/ArticleCategoryForm";
+import ArticleCategoryForm from "~/components/admin/form/article-category-form";
 
 function Page({ params }) {
   const [loader, setLoader] = useState(false);

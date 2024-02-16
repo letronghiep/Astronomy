@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState, useTransition } from "react";
 import { toast } from "react-toastify";
 import MainLayout from "~/components/admin/MainLayout";
-import UserForm from "~/components/admin/form/UserForm";
+import UserForm from "~/components/admin/form/user-form";
 import {
   blocked_a_user,
   get_user_by_id,

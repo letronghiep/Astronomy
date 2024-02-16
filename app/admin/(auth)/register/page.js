@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Schema } from "~/configs/schema";
 import { Button, TextField } from "@mui/material";
-import RegisterForm from "~/components/auth/RegisterForm";
+import RegisterForm from "~/components/auth/register-form";
 function RegisterPage() {
   return <RegisterForm />;
 }

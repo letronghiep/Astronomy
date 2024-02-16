@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import MainLayout from "../../../../components/admin/MainLayout";
-import UserForm from "~/components/admin/form/UserForm";
+import UserForm from "~/components/admin/form/user-form";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import useAdminNav from "~/hooks/useAdminNav";

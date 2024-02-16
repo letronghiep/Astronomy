@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import ArticleForm from "~/components/admin/form/ArticleForm";
+import ArticleForm from "~/components/admin/form/article-form";
 import MainLayout from "../../../../components/admin/MainLayout";
 import { useRouter } from "next/navigation";
 import useAdminNav from "~/hooks/useAdminNav";

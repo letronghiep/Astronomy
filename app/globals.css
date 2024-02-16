@@ -43,7 +43,9 @@ button:disabled {
   cursor: not-allowed; /* Example: change cursor to indicate non-interactivity */
   /* Add any other styles you want for the disabled state */
 }
-
+select:not([size]) {
+  padding-right: 24px;
+}
 .ql-editor > p {
   display: flex;
   column-gap: 10px;
@@ -72,4 +74,21 @@ button:disabled {
 }
 .mail-content img {
   border-radius: 12px;
+}
+.map-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%; /* calculate height of the screen minus the heading */
+}
+
+.map {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.geocoding {
+  position: absolute;
+  top: 10px;
+  left: 10px;
 }

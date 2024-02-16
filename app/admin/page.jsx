@@ -2,15 +2,11 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import { verifyToken } from "~/lib/verifyToken";
 import Cookies from "js-cookie";
 import useSWR from "swr";
 import useArticleStore from "~/hooks/useArticleStore";
-import SideBarAdmin from "~/components/admin/sidebar/SideBarAdmin";
-import { ToastContainer } from "react-toastify";
 import Loading from "../../components/loading";
-import HeaderAdmin from "~/components/header/HeaderAdmin";
-import SuperComponent from "~/components/SuperComponent";
+import SuperComponent from "~/components/super-component";
 import { getArticleCategory, getArticles } from "~/services/articleCategory";
 import MainLayout from "../../components/admin/MainLayout";
 import { get_refresh_token } from "~/services/auth";

@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 import MainLayout from "~/components/admin/MainLayout";
-import ArticleForm from "~/components/admin/form/ArticleForm";
+import ArticleForm from "~/components/admin/form/article-form";
 import { get_article_by_id, update_article } from "~/services/articles";
 import useAdminNav from "~/hooks/useAdminNav";
 import "react-toastify/dist/ReactToastify.css";

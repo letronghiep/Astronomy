@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import MainLayout from "~/components/admin/MainLayout";
-import Comment from "~/components/Comment";
+import Comment from "~/components/comment";
 import { get_article_by_id } from "~/services/articles";
 function DetailPage({ params }) {
   const [article, setArticle] = useState(null);

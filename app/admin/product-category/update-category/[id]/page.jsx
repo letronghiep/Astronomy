@@ -4,7 +4,7 @@ import React, { useEffect, useState, useTransition } from "react";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 import MainLayout from "~/components/admin/MainLayout";
-import ProductCategoryForm from "~/components/admin/form/ProductCategoryForm";
+import ProductCategoryForm from "~/components/admin/form/product-category-form";
 import useAdminNav from "~/hooks/useAdminNav";
 import useSelectedTag from "~/hooks/useSelectedTag";
 import {

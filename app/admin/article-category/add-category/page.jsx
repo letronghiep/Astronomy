@@ -10,11 +10,11 @@ import Loading from "~/components/loading";
 import { verifyToken } from "~/lib/verifyToken";
 import { add_article_category } from "~/services/articleCategory";
 import MainLayout from "../../../../components/admin/MainLayout";
-import ImageUpload from "~/components/ImageUpload";
+import ImageUpload from "~/components/image-upload";
 import { upload_image } from "~/services/CKEditor/image";
 import useAdminNav from "~/hooks/useAdminNav";
 import { markdownToHtml } from "~/lib/Parser";
-import ArticleCategoryForm from "~/components/admin/form/ArticleCategoryForm";
+import ArticleCategoryForm from "~/components/admin/form/article-category-form";
 
 function Page() {
   const [loader, setLoader] = useState(false);

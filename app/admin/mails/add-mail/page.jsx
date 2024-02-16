@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import MainLayout from "~/components/admin/MainLayout";
-import MailTemplateForm from "~/components/admin/form/MailTemplateForm";
+import MailTemplateForm from "~/components/admin/form/mail-template-form";
 import Loading from "~/components/loading";
 import useAdminNav from "~/hooks/useAdminNav";
 import useSelectedCategory from "~/hooks/useSelectedCategory";

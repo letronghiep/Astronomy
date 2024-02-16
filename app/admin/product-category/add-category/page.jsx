@@ -5,7 +5,7 @@ import {
   get_product_category,
 } from "~/services/product-category";
 import MainLayout from "../../../../components/admin/MainLayout";
-import ProductCategoryForm from "~/components/admin/form/ProductCategoryForm";
+import ProductCategoryForm from "~/components/admin/form/product-category-form";
 import { toast } from "react-toastify";
 import useAdminNav from "~/hooks/useAdminNav";
 import { useRouter } from "next/navigation";
