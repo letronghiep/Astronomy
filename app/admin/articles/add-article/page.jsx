@@ -7,7 +7,6 @@ import useAdminNav from "~/hooks/useAdminNav";
 import { add_article } from "~/services/articles";
 import { toast } from "react-toastify";
 import useSelectedCategory from "~/hooks/useSelectedCategory";
-import { htmlToMarkdown, markdownToHtml } from "~/lib/Parser";
 
 function AddArticle() {
   const [loader, setLoader] = useState(false);

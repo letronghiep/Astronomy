@@ -32,8 +32,7 @@ const ImageUpload = (props) => {
   };
   const imageHandler = useCallback(() => {
     try {
-      if (typeof document !== undefined) {
-
+      if (typeof document !== "undefined") {
         const input = document.createElement("input");
         input.setAttribute("type", "file");
         input.setAttribute("accept", "image/*");
@@ -67,6 +66,10 @@ const ImageUpload = (props) => {
           }
           setIsLoading(false); // Set loading state to false in case of error
         };
+      } else {
+        console.warn(
+          "document is not defined. Skipping imageHandler execution."
+        );
       }
     } catch (error) {
       setProgress(0);
