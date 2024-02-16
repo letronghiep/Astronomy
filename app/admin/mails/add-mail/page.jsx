@@ -8,7 +8,6 @@ import Loading from "~/components/loading";
 import useAdminNav from "~/hooks/useAdminNav";
 import useSelectedCategory from "~/hooks/useSelectedCategory";
 import { create_email_template } from "~/services/mails";
-
 function AddMailTemplate() {
   const [imageUrl, setImageUrl] = useState([]);
   const [html, setHtml] = useState();

@@ -2,8 +2,6 @@
 import { AttachFile, Gif } from "@mui/icons-material";
 import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-// import ImageUpload from "~/components/image-upload";
-import ReactQuillComponent from "~/components/react-quill";
 import Loading from "~/components/loading";
 import PickCategory from "~/components/partials/modal/category";
 import useFilterStore from "~/hooks/useFilterStore";
