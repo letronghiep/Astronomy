@@ -16,8 +16,12 @@ const UserLayout = ({ children }) => {
           <LeftSidebar />
           <div className={styles.right_content}>
             <div className = {styles.top_right_content}>
+                <div className = {styles.children}>
                 {children}
+                </div>
+                
             </div>
+            <Footer/>
             <div className={styles.margin}></div>
           </div>
         </div>

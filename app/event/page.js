@@ -6,6 +6,8 @@ import { useState } from "react";
 import { useAuthStore } from "~/utils/AuthStore";
 import UserLayout from "~/components/layout/UserLayout"
 
+import styles from "./event.module.css";
+
 export default function Event() {
   const route = useRouter();
   const { token } = useAuthStore();
@@ -19,7 +21,13 @@ export default function Event() {
     return (
       <main>
         <UserLayout>
-          Sự kiên
+          <div className = {styles.event}>
+            <div className = {styles.filter}></div>
+            <div clasName = {styles.timeline}>
+
+            </div>
+            
+          </div>
         </UserLayout>
       </main>
     );

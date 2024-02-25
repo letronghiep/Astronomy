@@ -1,0 +1,42 @@
+.cardgroup {
+    margin-top: 20px;
+}
+
+.layout1 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    font-weight: 500;
+    border-bottom: 1px solid #ccc;
+    padding: 0 10px;
+    padding-bottom: 7px;
+}
+
+.layout1 > div:nth-child(1) {
+    grid-row: span 2;
+}
+
+
+.layout2 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 10px;
+}
+
+
+.layout3 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+}

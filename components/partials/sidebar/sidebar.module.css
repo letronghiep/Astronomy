@@ -1,6 +1,80 @@
 .sidebar {
-    height: 100vh;
     background-color: #fff;
-    width: 300px;
+    
     padding: 13px 15px;
+   
+}
+
+.leftsidebar {
+    width: 70px;
+    transition: width 0.3s ease-in-out;
+    position: relative;
+    box-shadow: 1px 0 3px #6d6d6d;
+}
+
+.rightsidebar {
+    width: 350px;
+}
+
+.extend {
+    width: 300px;
+    padding: 13px 2px;
+}
+
+.extendBtn {
+    box-shadow: 0 0 1px #eee;
+    font-size: 1.3rem;
+    font-weight: 300;
+    height: 2.5rem;
+    width: 2.5rem;
+    position: absolute;
+    right: 0;
+    transform: translateX(50%);
+    background-color: var(--white);
+    border-radius: 5px;
+}
+
+.menu_item {
+    display: flex;
+    align-items: center;
+    padding: 7px 0;
+    margin-bottom: 10px;
+    border-radius: 7px;
+    cursor: pointer;
+    color: #333;
+}
+
+.menu_item:hover {
+    background-color: #eee;
+}
+
+.menu_item .icon {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    
+}
+
+.control {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.control_active {
+    background-color: #333!important;
+}
+
+.control_item {
+    display: flex;
+    background-color: #eee;
+    margin: 5px 7px;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.active_control {
+    background-color: #333;
 }

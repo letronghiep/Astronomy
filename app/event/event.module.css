@@ -1,0 +1,14 @@
+.event {
+    background-color: aliceblue;
+    min-height: 500px;
+    width: 100%;
+}
+
+.filter {
+    min-height: 150px;
+    background-color: #eee;
+}
+
+.timeline {
+    min-height: 700px;
+}

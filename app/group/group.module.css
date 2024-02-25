@@ -1,0 +1,211 @@
+.group {
+    width: 800px;
+}
+
+.group_list {
+    min-height: 400px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.post_list {
+    min-height: 700px;
+    margin-top: 20px;
+}
+
+.search {
+    position: relative;
+    width: 400px;
+    height: 40px;
+    box-shadow: 0 0 3px #ccc;
+    border-radius: 5px;
+}
+
+.search_icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+}
+
+.search input{
+    padding: 0 40px;
+    height: 100%;
+    width: 100%;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 5px;
+}
+
+
+.search input[type='text']:focus {
+    border: none!important;
+    outline: 1px solid #eee!important;
+}
+
+.group_item {
+    display: flex;
+    margin-top: 20px;
+    box-shadow: 0 0 2px #c2c2c2;
+    padding: 5px 7px;
+    border-radius: 5px;
+    background-color: #fcfcfc;
+}
+
+.item_info {
+    flex: 1;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.group_img {
+    height: 100%;
+}
+
+.control {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 130px;
+}
+
+.group_img img {
+    width: 90px;
+    height: 90px;
+    border-radius: 5px;
+}
+
+.item_info .name{
+    font-size: 1.7rem;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.item_info .analysis{
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+}
+
+.item_info .decription{
+    font-size: 1.4rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.post {
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 5px 7px;
+    margin-bottom: 10px;
+}
+.post_header {
+    border-bottom: 1px solid #eee;
+    display: flex;
+    padding-bottom: 10px;
+}
+
+.post_header .post_image {
+    position: relative;
+    display: flex;
+}
+
+.post_header .post_image img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.post_header .post_image .group_img {
+    width: 70px;
+    height: 70px;
+}
+
+.post_header .post_image .user_img {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.post_header .post_image .user_img img {
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 0 1px #fff;
+}
+
+.post_header .post_info {
+    flex: 1;
+    margin-left: 10px;
+}
+
+.post_info .group_name {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.post_info .post_username {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.post_info .post_date {
+    font-size: 1.4rem;
+    font-weight: 300;
+}
+
+.post_body {
+    min-height: 300px;
+    background-color: aquamarine;
+}
+
+.post_footer {
+    margin-top: 5px;
+}
+
+.post_control {
+    height: 50px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+}
+
+.post_control > div {
+    height: 37px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.post_control > div:hover {
+    box-shadow: 0 0 2px #a0a0a0;
+}
+
+.control_icon {
+    margin-right: 5px;
+    font-size: 1.8rem;
+}
+
+.post_analysis {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 7px;
+}
+
+.post_analysis > div {
+    display: flex;
+}
+
+.post_analysis .left .views {
+    margin-left: 30px;
+}
+
+.post_analysis .right .comments {
+    margin-right: 30px;
+}

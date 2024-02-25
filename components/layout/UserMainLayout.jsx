@@ -8,6 +8,9 @@ import RightSidebar from '~/components/partials/sidebar/RightSidebar.jsx';
 import styles from './layout.module.css';
 
 const UserMainLayout = ({ children }) => {
+
+  
+
   return (
     <div className = {styles.main}>
       <Header />
@@ -16,10 +19,13 @@ const UserMainLayout = ({ children }) => {
           <LeftSidebar />
           <div className={styles.right_content}>
             <div className = {styles.top_right_content}>
-                {children}
-                <RightSidebar />
+                <div className = {styles.children}>
+                  {children}
+                </div>
+                <RightSidebar/>
             </div>
             <Footer/>
+            <div className={styles.margin}></div>
           </div>
         </div>
       </main>

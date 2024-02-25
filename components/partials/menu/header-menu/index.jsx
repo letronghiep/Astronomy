@@ -5,12 +5,13 @@ import styles from './header-menu.module.css'
 
 function HeaderMenu() {
   return (
-    <div className = {styles.sidebar}>
-        <Link href="/">Nhóm</Link>
-        <Link href="/">Cộng đồng</Link>
-        <Link href="/">Sự kiện</Link>
-        <Link href="/">Lịch</Link>
-        <Link href="/">Bộ sưu tập</Link>
+    <div className = {styles.menu}>
+        <Link className = {styles.link} href="/knowledge">Khám phá</Link>
+        <Link className = {styles.link} href="/group">Nhóm</Link>
+        <Link className = {styles.link} href="/community">Cộng đồng</Link>
+        <Link className = {styles.link} href="/event">Sự kiện</Link>
+        <Link className = {styles.link} href="/schedule">Lịch</Link>
+        <Link className = {styles.link} href="/collection">Bộ sưu tập</Link>
     </div>
   );
 }

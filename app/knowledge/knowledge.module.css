@@ -1,0 +1,255 @@
+.knowledge {
+    width: 100%;
+    min-height: 100px;
+}
+
+.knowledge .cate_list {
+    min-height: 150px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    margin-bottom: 20px;
+}
+
+.knowledge .cate_list .left {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
+}
+
+.knowledge .cate_list .right {
+    box-shadow: 0 0 2px #757575;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.knowledge .cate_list .right .show_type {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 5px;
+    margin-bottom: 7px;
+}
+
+.knowledge .cate_list .right .show_type div {
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    border-radius: 5px;
+    box-shadow: 0 0 2px #808080;
+    cursor: pointer;
+    color: #131313;
+}
+
+.knowledge .cate_list .right .show_type div:hover {
+    background-color: #eee;
+    box-shadow: none;
+    opacity: 0.7;
+}
+
+.knowledge .cate_list .right .show_type .active {
+    box-shadow: none;
+    background-color: #eee;
+}
+
+.cate_image img {
+    width: 80px;
+    border-radius: 2px;
+}
+
+.cate_image {
+    margin-right: 10px;
+}
+
+.cate_item {
+    display: flex;
+}
+
+.cate_item .cate_name {
+    font-weight: 500;
+}
+
+.cate_item .info {
+    flex: 1;
+}
+
+.cate_item .info p {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    font-size: 1.4rem;
+}
+
+.search {
+    width: 100%;
+}
+
+.search_input {
+    width: 100%;
+    position: relative;
+}
+
+.search_input input {
+    width: 100%;
+    height: 40px;
+    font-size: 1.6rem;
+    border-radius: 5px;
+    outline: none;
+}
+
+.search_input input:focus {
+    outline: none;
+    border-color: transparent;
+}
+
+.search_input .search_icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+}
+
+.search_status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 1.5rem;
+}
+
+.object {
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+    min-height: 100px;
+    transition: all 1s ease-in-out;
+}
+
+.list {
+    display: grid;
+    grid-template-columns: 1;
+    grid-gap: 10px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+}
+
+.grid .object_item {
+    display: flex;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.grid .object_item:hover {
+    background-color: rgba(231, 231, 231, 0.1);
+}
+
+.grid .object_item img {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.grid .object_item .info {
+    flex: 1;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+
+.grid .object_item .info h3 {
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.grid .object_item .info > p {
+    font-size: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+}
+
+.grid .object_item .suggest_list {
+    margin-top: 7px;
+    flex-wrap: wrap;
+}
+
+.suggest_list > div {
+    margin-bottom: 5px;
+}
+
+
+
+
+.list .object_item {
+    display: flex;
+}
+
+.list .object_item img {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.list .object_item .info {
+    flex: 1;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.list .object_item .info h3 {
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.list .object_item .info > p {
+    font-size: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+}
+
+
+
+.object_item .parents_name, 
+.object_item .suggest_list{
+    display: flex;
+}
+
+.list .object_item .suggest_list {
+    margin-top: 7px;
+}
+
+.object_item .tag {
+    background-color: #eee;
+    border-radius: 100px;
+    padding: 4px 10px;
+    font-size: 1.4rem;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.object_item .parents_name .tag{
+    background: linear-gradient(to right, #ff5e00, #330516);
+    color: #fff;
+}
+
+.object_item .tag:hover {
+    opacity: 0.9;
+}
+

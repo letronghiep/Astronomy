@@ -1,0 +1,33 @@
+.image {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.image_item {
+    break-inside: avoid-column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.image_item img {
+    object-fit: cover;
+    height: 100%;
+}
+
+.image_item:hover img {
+    opacity: 0.8;
+}
+
+.image_status {
+    z-index: 1;
+    color: aliceblue;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 2rem;
+}
+

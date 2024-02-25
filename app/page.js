@@ -4,7 +4,11 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useAuthStore } from "~/utils/AuthStore";
-import UserMainLayout from "~/components/layout/UserMainLayout"
+import UserLayout from "~/components/layout/UserLayout"
+import CardGroup from "~/components/user/cardgroup";
+import EventCard from "~/components/user/card/event";
+
+import styles from './home.module.css'
 
 export default function Home() {
   const route = useRouter();
@@ -18,9 +22,29 @@ export default function Home() {
   if (token === null) {
     return (
       <main>
-        <UserMainLayout>
-          Đây là Layout 
-        </UserMainLayout>
+        <UserLayout>
+          <div className = {styles.home}>
+            <CardGroup layout1>
+              <EventCard title = "Card1"/>
+              <EventCard title = "Card2"/>
+              <EventCard title = "Card3"/>
+            </CardGroup>
+            <CardGroup title = "Sự kiện sắp tới" layout1>
+              <EventCard title = "Card1"/>
+              <EventCard title = "Card2"/>
+              <EventCard title = "Card3"/>
+            </CardGroup>
+            <CardGroup title = "Danh mục" layout2>
+              <EventCard title = "Card1"/>
+              <EventCard title = "Card2"/>
+              <EventCard title = "Card3"/>
+            </CardGroup>
+            <CardGroup title = "Sản phẩm đề xuất" layout3>
+              <EventCard title = "Card1"/>
+              <EventCard title = "Card2"/>
+            </CardGroup>
+          </div>
+        </UserLayout>
       </main>
     );
   }

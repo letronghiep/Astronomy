@@ -6,6 +6,11 @@ import { useState } from "react";
 import { useAuthStore } from "~/utils/AuthStore";
 import UserLayout from "~/components/layout/UserLayout"
 
+import ProductItem from "./ProductItem";
+import ProductPreviewItem from "./ProductPreviewItem";
+
+import styles from './shop.module.css'
+
 export default function Shop() {
   const route = useRouter();
   const { token } = useAuthStore();
@@ -19,7 +24,24 @@ export default function Shop() {
     return (
       <main>
         <UserLayout>
-          Sự kiên
+          <div className = {styles.shop}>
+            <div className = {styles.product_preview}>
+              <ProductPreviewItem/>
+              {/* <ProductPreviewItem/>
+              <ProductPreviewItem/>
+              <ProductPreviewItem/> */}
+            </div>
+            <ProductItem/>
+            <ProductItem/>
+            <ProductItem/>
+            <ProductItem/>
+            <ProductItem/>
+            <ProductItem/>
+            <ProductItem/>
+            <ProductItem/>
+            <ProductItem/>
+            <ProductItem/>
+          </div>
         </UserLayout>
       </main>
     );

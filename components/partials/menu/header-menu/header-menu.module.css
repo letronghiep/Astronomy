@@ -1,0 +1,8 @@
+.menu .link {
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.menu .link:hover {
+    scale: 1.1;
+}

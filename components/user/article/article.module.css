@@ -1,0 +1,53 @@
+.article {
+    width: 100%;
+}
+
+.article .header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.article .header .right {
+    width: 200px;
+    
+}
+
+.article .header .right > div {
+    background-color: rgba(250, 235, 215, 0.5);
+    font-size: 1.4rem;
+    border: 1px solid rgb(250, 235, 215);
+    padding: 4px 6px 8px 6px;
+    border-radius: 2px;
+}
+
+.article .header .left {
+    flex: 1;
+    padding-right: 8px;
+}
+
+.article .header .left .title {
+    font-size: 2rem;
+    border-bottom: 2px solid #B13C08;
+    font-weight: 600;
+}
+
+.article .header .left .des {
+    margin-top: 5px;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.audio  {
+    margin-top: 7px;
+}
+
+.audio audio {
+    width: 100%;
+    height: 30px;
+    color: red
+    
+}
+
+.article .body {
+    margin-top: 20px;
+}

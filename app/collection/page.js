@@ -6,6 +6,9 @@ import { useState } from "react";
 import { useAuthStore } from "~/utils/AuthStore";
 import UserLayout from "~/components/layout/UserLayout"
 
+
+import styles from './collection.module.css'
+
 export default function Collection() {
   const route = useRouter();
   const { token } = useAuthStore();
@@ -19,7 +22,12 @@ export default function Collection() {
     return (
       <main>
         <UserLayout>
-          Sự kiên
+          <div className = {styles.collection}>
+            <div className={styles.control}></div>
+            <div className={styles.content}>
+
+            </div>
+          </div>
         </UserLayout>
       </main>
     );
